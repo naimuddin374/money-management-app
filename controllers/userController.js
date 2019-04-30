@@ -65,22 +65,22 @@ module.exports = {
                 } else {
                     bcrypt.compare(password, user.password, function (err, result) {
                         if (err) {
-                            return serverError(res, error)
+                            return serverError(res, err)
                         }
                         if (!result) {
-                            return resourceError(res, 'Invalid Password')
+                            return resourceError(res, 'Password Doesn\'t Match')
                         }
-                    });
-                    let token = jwt.sign({
-                        _id: user._id,
-                        name: user.name,
-                        email: user.email,
-                    }, 'SECRET', { expiresIn: '1d' })
+                        let token = jwt.sign({
+                            _id: user._id,
+                            name: user.name,
+                            email: user.email,
+                        }, 'SECRET', { expiresIn: '1d' })
 
-                    res.status(200).json({
-                        message: 'Login Successful',
-                        token: `Bearer ${token}`
-                    })
+                        res.status(200).json({
+                            message: 'Login Successful',
+                            token: `Bearer ${token}`
+                        })
+                    });
                 }
             })
             .catch(error => serverError(res, error))

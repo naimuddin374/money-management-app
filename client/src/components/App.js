@@ -9,7 +9,8 @@ import Register from '../pages/Register'
 function App() {
   return (
     <BrowserRouter>
-      <div className="App">
+      <div className="container">
+      <br/>
         <Switch>
           <Route path="/login" component={Login} />
           <Route path="/register" component={Register} />
