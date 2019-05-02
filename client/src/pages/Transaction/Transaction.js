@@ -1,12 +1,27 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { loadTransactions } from '../store/actions/transactionActions'
+import { loadTransactions } from '../../store/actions/transactionActions'
+import CreateTransaction from './CreateTransaction'
 
 class Transaction extends React.Component {
 
     componentDidMount() {
         this.props.loadTransactions()
+    }
+
+    state = {
+        createModalOpen: false
+    }
+    openCreateModal = () => {
+        this.setState({
+            createModalOpen: true
+        })
+    }
+    closeCreateModal = () => {
+        this.setState({
+            createModalOpen: false
+        })
     }
 
     render() {
@@ -16,6 +31,17 @@ class Transaction extends React.Component {
                 <div className="col-md-8 offset-md-2">
                     <h1>Hello, {auth.user.name}</h1>
                     <p>Your email address {auth.user.email}</p>
+                    <br />
+                    <button
+                        className="btn btn-success"
+                        onClick={this.openCreateModal}
+                    >
+                        Add New
+                    </button>
+                    <CreateTransaction
+                        isOpen={this.state.createModalOpen}
+                        isClose={this.closeCreateModal}
+                    />
                     <br />
                     <ul className="list-group">
                         {
