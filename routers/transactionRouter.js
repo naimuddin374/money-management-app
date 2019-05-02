@@ -6,15 +6,15 @@ const authenticate = require('../authenticate')
 router.get('/', authenticate, getAll)
 
 // Create Data
-router.post('/', create)
+router.post('/', authenticate, create)
 
 // Get Detail Data
-router.get('/:transactionId', getDetail)
+router.get('/:transactionId', authenticate, getDetail)
 
 // Update Data
-router.put('/:transactionId', update)
+router.put('/:transactionId', authenticate, update)
 
 // Delete Data
-router.delete('/:transactionId', remove)
+router.delete('/:transactionId', authenticate, remove)
 
 module.exports = router

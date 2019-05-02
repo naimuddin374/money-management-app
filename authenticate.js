@@ -12,7 +12,7 @@ module.exports = (req, res, next) => {
             })
         }
 
-        res.user = user
+        req.user = user
         return next()
     })(req, res, next)
 }
