@@ -45,13 +45,14 @@ class Transaction extends React.Component {
                     <br />
                     <ul className="list-group">
                         {
-                            transactions.map(transaction => (
-                                <li className="list-group-item" key={transaction._id}>
-                                    <p><b>Type:</b> {transaction.type}</p>
-                                    <p><b>Amount:</b> {transaction.amount}</p>
-                                    <p><b>Note:</b> {transaction.note}</p>
-                                </li>
-                            ))
+                            transactions.length > 0 ?
+                                transactions.map(transaction => (
+                                    <li className="list-group-item" key={transaction._id}>
+                                        <p><b>Type:</b> {transaction.type}</p>
+                                        <p><b>Amount:</b> {transaction.amount}</p>
+                                        <p><b>Note:</b> {transaction.note}</p>
+                                    </li>
+                                )) : ''
                         }
                     </ul>
                 </div>
@@ -62,7 +63,7 @@ class Transaction extends React.Component {
 
 const mapStateToProps = state => ({
     auth: state.auth,
-    transactions: state.transactions
+    transactions: state.transactions.transactionData
 })
 
 export default connect(mapStateToProps, { loadTransactions })(Transaction)

@@ -10,7 +10,30 @@ export const loadTransactions = () => dispatch => {
                     transactions: response.data
                 }
             })
-            console.log(response)
         })
         .catch(error => console.log(error))
+}
+
+export const createNewTransaction = transaction => dispatch => {
+    Axios.post('/api/transactions', transaction)
+        .then(response => {
+            dispatch({
+                type: Types.CREATE_TRANSACTION,
+                payload: {
+                    transaction: response.data.transaction,
+                    message: response.data.message,
+                    isSuccess: true
+                }
+            })
+        })
+        .catch(error => {
+            dispatch({
+                type: Types.TRANSACTIONS_ERROR,
+                payload: {
+                    error: error.response.data.error,
+                    message: error.response.data.message,
+                    isSuccess: false
+                }
+            })
+        })
 }

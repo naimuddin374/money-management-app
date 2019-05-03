@@ -31,7 +31,7 @@ module.exports = {
                             .then(result => {
                                 res.status(201).json({
                                     message: 'Transaction Created Successful',
-                                    ...result._doc
+                                    transaction: trans._doc
                                 })
                             })
                             .catch(error => serverError(res, error))
@@ -41,7 +41,7 @@ module.exports = {
             .catch(error => serverError(res, error))
     },
     getAll(req, res) {
-        Transaction.find({author: req.user._id})
+        Transaction.find({ author: req.user._id }).sort({ _id: -1 })
             .then(transaction => {
                 if (transaction.length === 0) {
                     return res.status(200).json({

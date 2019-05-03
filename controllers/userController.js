@@ -85,7 +85,7 @@ module.exports = {
             .catch(error => serverError(res, error))
     },
     getAll(req, res) {
-        User.find()
+        User.find().sort({ _id: -1 })
             .then(user => {
                 if (!user) {
                     return res.status(200).json({
