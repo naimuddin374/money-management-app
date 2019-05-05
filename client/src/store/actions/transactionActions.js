@@ -52,3 +52,17 @@ export const removeTransaction = id => dispatch => {
         })
         .catch(error => console.log(error))
 }
+
+export const updateTransaction = (id, transaction) => dispatch => {
+    Axios.put(`/api/transactions/${id}`, transaction)
+        .then(response => {
+            dispatch({
+                type: Types.UPDATE_TRANSACTION,
+                payload: {
+                    transaction: response.data
+                }
+            })
+            console.log(response.data)
+        })
+        .catch(error => console.log(error))
+}

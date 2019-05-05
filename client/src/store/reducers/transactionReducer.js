@@ -39,6 +39,15 @@ const transactionReducer = (state = init, action) => {
                 return tran._id !== action.payload._id
             })
         }
+        case Types.UPDATE_TRANSACTION: {
+            let transactions = [...state.transactionData]
+            return transactions.map(tran => {
+                if (tran._id === action.payload.transaction._id) {
+                    return action.payload.transaction
+                }
+                return tran
+            })
+        }
         default: return state
     }
 }

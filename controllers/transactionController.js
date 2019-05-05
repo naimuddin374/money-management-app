@@ -67,7 +67,7 @@ module.exports = {
     },
     update(req, res) {
         let { transactionId } = req.params
-        User.findByIdAndUpdate(transactionId, { $set: req.body }, { new: true })
+        Transaction.findOneAndUpdate({ _id: transactionId }, { $set: req.body }, { new: true })
             .then(result => {
                 res.status(200).json({
                     message: 'Updated Successful',
@@ -78,7 +78,7 @@ module.exports = {
     },
     remove(req, res) {
         let { transactionId } = req.params
-        Transaction.findByIdAndRemove(transactionId)
+        Transaction.findOneAndDelete({ _id: transactionId })
             .then(result => {
                 res.status(200).json({
                     message: 'Transaction Deleted Successful',

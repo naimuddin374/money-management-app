@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { loadTransactions, removeTransaction } from '../../store/actions/transactionActions'
 import CreateTransaction from './CreateTransaction'
+import UpdateTransaction from './UpdateTransaction'
 
 class Transaction extends React.Component {
 
@@ -11,8 +12,23 @@ class Transaction extends React.Component {
     }
 
     state = {
-        createModalOpen: false
+        createModalOpen: false,
+        updateModalOpen: false,
+        id: ''
     }
+    openUpdateModal = (id) => {
+        this.setState({
+            updateModalOpen: true,
+            id
+        })
+    }
+    closeUpdateModal = () => {
+        this.setState({
+            updateModalOpen: false,
+            id: ''
+        })
+    }
+
     openCreateModal = () => {
         this.setState({
             createModalOpen: true
@@ -51,11 +67,26 @@ class Transaction extends React.Component {
                                     <p><b>Type:</b> {transaction.type}</p>
                                     <p><b>Amount:</b> {transaction.amount}</p>
                                     <p><b>Note:</b> {transaction.note}</p>
+                                    {
+                                        transaction._id === this.state.id ?
+                                            <UpdateTransaction
+                                                isOpen={this.state.updateModalOpen}
+                                                isClose={this.closeUpdateModal}
+                                                transaction={transaction}
+                                            /> : null
+                                    }
                                     <button
                                         onClick={() => this.props.removeTransaction(transaction._id)}
                                         className="btn btn-danger"
                                     >
                                         Remove
+                                        </button>
+
+                                    <button
+                                        onClick={() => this.openUpdateModal(transaction._id)}
+                                        className="btn btn-primary"
+                                    >
+                                        Edit
                                         </button>
                                 </li>
                             )) : ''
