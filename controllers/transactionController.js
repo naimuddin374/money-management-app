@@ -71,7 +71,7 @@ module.exports = {
             .then(result => {
                 res.status(200).json({
                     message: 'Updated Successful',
-                    ...result
+                    ...result._doc
                 })
             })
             .catch(error => serverError(res, error))
@@ -82,7 +82,7 @@ module.exports = {
             .then(result => {
                 res.status(200).json({
                     message: 'Transaction Deleted Successful',
-                    ...result
+                    ...result._doc
                 })
             })
             .catch(error => serverError(res, error))

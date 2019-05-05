@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { loadTransactions } from '../../store/actions/transactionActions'
+import { loadTransactions, removeTransaction } from '../../store/actions/transactionActions'
 import CreateTransaction from './CreateTransaction'
 
 class Transaction extends React.Component {
@@ -29,6 +29,7 @@ class Transaction extends React.Component {
         return (
             <div className="row">
                 <div className="col-md-8 offset-md-2">
+
                     <h1>Hello, {auth.user.name}</h1>
                     <p>Your email address {auth.user.email}</p>
                     <br />
@@ -44,15 +45,20 @@ class Transaction extends React.Component {
                     />
                     <br />
                     <ul className="list-group">
-                        {
-                            transactions.length > 0 ?
-                                transactions.map(transaction => (
-                                    <li className="list-group-item" key={transaction._id}>
-                                        <p><b>Type:</b> {transaction.type}</p>
-                                        <p><b>Amount:</b> {transaction.amount}</p>
-                                        <p><b>Note:</b> {transaction.note}</p>
-                                    </li>
-                                )) : ''
+                        {transactions.length > 0 ?
+                            transactions.map(transaction => (
+                                <li className="list-group-item" key={transaction._id}>
+                                    <p><b>Type:</b> {transaction.type}</p>
+                                    <p><b>Amount:</b> {transaction.amount}</p>
+                                    <p><b>Note:</b> {transaction.note}</p>
+                                    <button
+                                        onClick={() => this.props.removeTransaction(transaction._id)}
+                                        className="btn btn-danger"
+                                    >
+                                        Remove
+                                        </button>
+                                </li>
+                            )) : ''
                         }
                     </ul>
                 </div>
@@ -66,4 +72,4 @@ const mapStateToProps = state => ({
     transactions: state.transactions.transactionData
 })
 
-export default connect(mapStateToProps, { loadTransactions })(Transaction)
+export default connect(mapStateToProps, { loadTransactions, removeTransaction })(Transaction)

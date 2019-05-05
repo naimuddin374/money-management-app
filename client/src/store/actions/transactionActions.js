@@ -37,3 +37,18 @@ export const createNewTransaction = transaction => dispatch => {
             })
         })
 }
+
+export const removeTransaction = id => dispatch => {
+    Axios.delete(`/api/transactions/${id}`)
+        .then(response => {
+            dispatch({
+                type: Types.REMOVE_TRANSACTION,
+                payload: {
+                    _id: response.data._id,
+                    message: response.data.message,
+                    isSuccess: true
+                }
+            })
+        })
+        .catch(error => console.log(error))
+}

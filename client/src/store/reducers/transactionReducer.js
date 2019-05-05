@@ -33,6 +33,12 @@ const transactionReducer = (state = init, action) => {
                 isSuccess: action.payload.isSuccess
             }
         }
+        case Types.REMOVE_TRANSACTION: {
+            let transactions = [...state.transactionData]
+            return transactions.filter(tran => {
+                return tran._id !== action.payload._id
+            })
+        }
         default: return state
     }
 }
