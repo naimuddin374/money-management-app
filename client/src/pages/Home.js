@@ -15,13 +15,13 @@ class Home extends React.Component {
                         >Logout</button> :
                         <Link to="/login"><button className="btn btn-primary">Login</button></Link>
                 }
-                            </div>
+            </div>
         )
-            }    
+    }
 }
 
 const mapStateToProps = state => ({
     auth: state.auth
 })
 
-export default connect(mapStateToProps, {logout})(Home)
+export default connect(mapStateToProps, { logout })(Home)

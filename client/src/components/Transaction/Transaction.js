@@ -1,6 +1,5 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Link } from 'react-router-dom'
 import { loadTransactions, removeTransaction } from '../../store/actions/transactionActions'
 import CreateTransaction from './CreateTransaction'
 import UpdateTransaction from './UpdateTransaction'
@@ -41,7 +40,16 @@ class Transaction extends React.Component {
     }
 
     render() {
+        let tran = [
+            {
+                "_id": "ADF2555ADFA",
+                "amount": 1000,
+                "type": "Income",
+                "note": "This is default data"
+            }
+        ]
         let { auth, transactions } = this.props
+        let trans = transactions || tran
         return (
             <div className="row">
                 <div className="col-md-8 offset-md-2">
@@ -61,8 +69,8 @@ class Transaction extends React.Component {
                     />
                     <br />
                     <ul className="list-group">
-                        {transactions.length > 0 ?
-                            transactions.map(transaction => (
+                        {trans.length > 0 ?
+                            trans.map(transaction => (
                                 <li className="list-group-item" key={transaction._id}>
                                     <p><b>Type:</b> {transaction.type}</p>
                                     <p><b>Amount:</b> {transaction.amount}</p>
@@ -89,7 +97,7 @@ class Transaction extends React.Component {
                                         Edit
                                         </button>
                                 </li>
-                            )) : ''
+                            )) : null
                         }
                     </ul>
                 </div>

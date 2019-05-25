@@ -20,9 +20,14 @@ class CreateTransaction extends React.Component {
         type: '',
         amount: '',
         note: '',
-        error: {},
+        // error: {},
         alertMsg: '',
-        isSuccess: ''
+        isSuccess: '',
+        error: {
+            "type": null,
+            "amount": null,
+            "note": null
+        }
     }
     static getDerivedStateFromProps(nextProps, prevState) {
         if (JSON.stringify(nextProps.transactions.error) !== JSON.stringify(prevState.error)) {
@@ -54,8 +59,8 @@ class CreateTransaction extends React.Component {
         })
     }
     render() {
-        let { type, amount, note, error, alertMsg, isSuccess } = this.state
-        let alertMsgDiv;
+        let { amount, note, error, alertMsg, isSuccess } = this.state
+        let alertMsgDiv = null;
         if (isSuccess) {
             alertMsgDiv = <div className="alert alert-success">{alertMsg}</div>
         } else {
