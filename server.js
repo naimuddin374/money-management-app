@@ -35,7 +35,10 @@ app.get('/', (req, res) => {
 const PORT = process.env.PORT || 4000
 app.listen(PORT, () => {
     console.log(`Server is running is port ${PORT}`)
-    mongoose.connect('mongodb://localhost:27017/money-management-app', { useNewUrlParser: true }, () => {
+    // mongoose.connect('mongodb://localhost:27017/money-management-app', { useNewUrlParser: true }, () => {
+    //     console.log('Database Connected...')
+    // });
+    mongoose.connect('mongodb+srv://admin123:' + process.env.MONGO_ATLAS_PW + '@monyappcluster-zn1vp.mongodb.net/test?retryWrites=true', { useNewUrlParser: true }, () => {
         console.log('Database Connected...')
     });
 })
