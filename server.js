@@ -4,7 +4,7 @@ const cors = require('cors')
 const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
 const passport = require('passport')
-// cont path = require('path')
+const path = require('path')
 
 
 const app = express()
@@ -21,12 +21,12 @@ require('./passport')(passport)
 app.use('/api/users', require('./routers/userRouter'))
 app.use('/api/transactions', require('./routers/transactionRouter'))
 
-// if(process.env.NODE_ENV === 'production'){
-//     app.use(express.static('client/build'))
-//     app.get('*', (req, res) => {
-//         res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
-//     })
-// }
+if (process.env.NODE_ENV === 'production') {
+    app.use(express.static('client/build'))
+    app.get('*', (req, res) => {
+        res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
+    })
+}
 
 app.get('/', (req, res) => {
     res.json('Welcome to Our Application')
@@ -38,7 +38,7 @@ app.listen(PORT, () => {
     // mongoose.connect('mongodb://localhost:27017/money-management-app', { useNewUrlParser: true }, () => {
     //     console.log('Database Connected...')
     // });
-    mongoose.connect('mongodb+srv://admin123:' + process.env.MONGO_ATLAS_PW + '@monyappcluster-zn1vp.mongodb.net/test?retryWrites=true', { useNewUrlParser: true }, () => {
+    mongoose.connect(`mongodb+srv://${process.env.dbUsername}:${dbPassword}@monyappcluster-zn1vp.mongodb.net/test?retryWrites=true`, { useNewUrlParser: true }, () => {
         console.log('Database Connected...')
     });
 })
