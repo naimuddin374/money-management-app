@@ -38,7 +38,7 @@ app.listen(PORT, () => {
     // mongoose.connect('mongodb://localhost:27017/money-management-app', { useNewUrlParser: true }, () => {
     //     console.log('Database Connected...')
     // });
-    mongoose.connect(`mongodb+srv://${process.env.dbUsername}:${dbPassword}@monyappcluster-zn1vp.mongodb.net/test?retryWrites=true`, { useNewUrlParser: true }, () => {
+    mongoose.connect(`mongodb+srv://${process.env.dbUsername}:${process.env.dbPassword}@monyappcluster-zn1vp.mongodb.net/test?retryWrites=true`, { useNewUrlParser: true }, () => {
         console.log('Database Connected...')
     });
 })
